@@ -19,7 +19,19 @@ const loadPhone = async (searchPhone) => {
 const displayPhones = phones => {
       const phoneContainer = document.getElementById('phone-container');
       phoneContainer.innerText = '';
-      phones.forEach(phone =>{
+
+       const allContainer = document.getElementById('buttonhidden');
+
+        if (phones.length > 6) {
+            allContainer.classList.remove('hidden');
+      }
+      else {
+            allContainer.classList.add('hidden');
+      }
+
+      phones = phones.slice(0, 6);
+      
+      phones.forEach(phone => {
             console.log(phone);
             //Create a div
             const phoneCard = document.createElement('div');
@@ -41,13 +53,26 @@ const displayPhones = phones => {
 
             
 
-      })
+      });
+      toggleLoading(false);
 }
 
 const buttonSearch = () => {
+      toggleLoading(true);
       const searchField = document.getElementById('search-field');
       const searchText = searchField.value;
       loadPhone(searchText);
+
+};
+
+const toggleLoading = (isLoading) => {
+      const loadingSpinner = document.getElementById('loading-spinner');
+      if (isLoading) {
+            loadingSpinner.classList.remove('hidden');
+      }
+      else {
+            loadingSpinner.classList.add('hidden');
+      }
 };
 
 
